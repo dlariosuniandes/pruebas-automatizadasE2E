@@ -87,7 +87,7 @@ Desde el directorio base del proyecto (directorio semana5 del ejemplo) ejecute e
 
 Observe y evalúe la ejecución del escenario de prueba.
 
-<i>Nota 1</i>: se recomienda dejar sólo un escenario de pruebas para ejecución en el directorio feature para cada uno de los escenarios de prueba a ejecutar.
-<i>Nota 2</i>: luego de ejecutar escenario de pruebas 07, asegúrese que el valor de la variable <code>PASSWORD</code> contenta la nueva contraseña (Valor que se asignaría en la variable <code>NEW_PASSWORD</code>)
+<i>Nota 1</i>: se recomienda dejar sólo un escenario de pruebas para ejecución en el directorio feature para cada uno de los escenarios de prueba a ejecutar.<br><br>
+<i>Nota 2</i>: luego de ejecutar escenario de pruebas 07, asegúrese que el valor de la variable <code>PASSWORD</code> contenta la nueva contraseña (Valor que se asignaría en la variable <code>NEW_PASSWORD</code>)<br><br>
 <i>Nota 3</i>: asegure que los valores de las variables <code>NEW_PASSWORD</code> y <code>NEW_PASSWORD2</code> tengan valores diferentes con cadenas de mínimo 10 caracteres.
 

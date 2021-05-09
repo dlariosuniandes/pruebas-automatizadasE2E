@@ -12,7 +12,7 @@
 ## Escenarios probados
 
 
-# Integrantes equipo
+## Integrantes equipo
 - Clayderman Josue Rojas Jimenez  - cjrojas1@uniandes.edu.co
 - Daniel Alberto Larios Torres    - dlarios@uniandes.edu.co
 - Hector Fabio Varón Bonilla      - h.varon@uniandes.edu.co

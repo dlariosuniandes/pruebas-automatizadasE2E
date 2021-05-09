@@ -24,7 +24,7 @@
 - Rafael David Matiz Cortes       - r.matiz@uniandes.edu.co
 
 
-## INSTRUCCIONES PARA EJECUTAR LOS ESCENARIOS
+## Instrucciones para ejecutar los escenarios de prueba con Kraken
 
 <strong>1.	Crear un directorio vacío e ingresar a él.  Para ello ejecute los siguientes comandos en un terminal:</strong>
 

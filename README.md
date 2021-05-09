@@ -69,7 +69,7 @@ Presionar 2 luego -Enter- -Enter-
 
 Para ello, tome el archivo <code>kraken/features/web/step_definitions/web_steps.rb</code> de la entrega y reemplácelo en la ruta respectiva dentro de la carpeta (es decir, en la ruta <code>semana5/features/web/step_definitions/</code> del ejemplo)
 
-Modifique el archivo web_steps.rb (previamente colocado en <code>semana5/features/web/step_definitions/</code>) y edite las primeras líneas del archivo reemplazando los valores respectivos para la instalación de Ghost dónde se ejecutará la prueba:
+Modifique el archivo <code>web_steps.rb</code> (previamente colocado en <code>semana5/features/web/step_definitions/</code>) y edite las primeras líneas del archivo reemplazando los valores respectivos para la instalación de Ghost dónde se ejecutará la prueba:
 
 <code>USER_NAME</code>: correo electrónico del usuario administrador<br>
 <code>PASSWORD</code>: contraseña del usuario administrador<br>
@@ -88,6 +88,6 @@ Desde el directorio base del proyecto (directorio semana5 del ejemplo) ejecute e
 Observe y evalúe la ejecución del escenario de prueba.
 
 <i>Nota 1</i>: se recomienda dejar sólo un escenario de pruebas para ejecución en el directorio feature para cada uno de los escenarios de prueba a ejecutar.<br><br>
-<i>Nota 2</i>: luego de ejecutar escenario de pruebas 07, asegúrese que el valor de la variable <code>PASSWORD</code> contenta la nueva contraseña (Valor que se asignaría en la variable <code>NEW_PASSWORD</code>)<br><br>
-<i>Nota 3</i>: asegure que los valores de las variables <code>NEW_PASSWORD</code> y <code>NEW_PASSWORD2</code> tengan valores diferentes con cadenas de mínimo 10 caracteres.
+<i>Nota 2</i>: luego de ejecutar escenario de pruebas 07, asegúrese que en el archivo <code>web_steps.rb</code> el valor de la variable <code>PASSWORD</code> contenta la nueva contraseña (Valor que se asignaría en la variable <code>NEW_PASSWORD</code>)<br><br>
+<i>Nota 3</i>: asegure que en el archivo <code>web_steps.rb</code> los valores de las variables <code>NEW_PASSWORD</code> y <code>NEW_PASSWORD2</code> tengan valores diferentes con cadenas de mínimo 10 caracteres.
 

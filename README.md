@@ -61,9 +61,9 @@ Reemplazar <code>[ruta_instalables_kraken]</code> por la ruta dónde se encuentr
 <strong>5.	Generar el Proyecto base en Kraken</strong>
 
 <code>bundle exec kraken-mobile gen</code><br>
-Presionar <Enter><br>
+Presionar -Enter-<br>
 <code>bundle exec kraken-mobile setup</code><br>
-Presionar 2 luego <Enter> <Enter>
+Presionar 2 luego -Enter- -Enter-
 
 <strong>6.	Reemplazar la definición de pasos</strong>
 

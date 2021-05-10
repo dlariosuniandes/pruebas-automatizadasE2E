@@ -1,4 +1,5 @@
 import * as cypress from "cypress";
+import { first } from "cypress/types/lodash";
 import { getSyntheticLeadingComments } from "typescript";
 
 export class PostPage {
@@ -66,8 +67,11 @@ export class PostPage {
   }
 
   clickUnpublish() {
-    cy.get(".gh-publishmenu").click();
-    cy.get(".gh-publishmenu-radio").contains("Unpublished").click();
+    cy.get(".gh-publishmenu.ember-view").first().click({ force: true });
+    cy.get(".gh-publishmenu-radio-label")
+      .contains("Unpublished")
+      .first()
+      .click();
     cy.get(
       "button.gh-btn.gh-btn-blue.gh-publishmenu-button.gh-btn-icon.ember-view"
     ).click();

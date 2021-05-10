@@ -2,13 +2,13 @@
 
 
 ## Funcionalidades
-- Crear post
-- Crear página
-- Crear tag
-- Busqueda
-- Contraseña
-- Nombre sitio
-- Navegación
+- Crear post: Se prueba la funcionalidad para la creación de post, asi como su modificación y eliminación.
+- Crear página: Se prueba la funcionalidad para la creación de página, asi como su modificación y eliminación.
+- Crear tag: Se prueba la funcionalidad para la creación de tag, asi como su modificación y eliminación.
+- Busqueda: Funcionalidad que permite buscar post, paginas.
+- Contraseña: Funcionalidad para cambiar contraseña
+- Nombre sitio: Funcionalidad de configuración del sitio.
+- Navegación: Agregar elementos nuevos de navegación en el sitio.
 
 ## Escenarios probados
 

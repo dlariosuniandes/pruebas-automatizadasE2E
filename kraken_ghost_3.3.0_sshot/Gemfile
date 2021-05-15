@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+gem 'rubyzip', '1.2.1'
+gem 'kraken-mobile', path: '/home/camilo/Desktop/TallerSemana5/KrakenMobile-1.0.9'
+
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+# gem "rails"

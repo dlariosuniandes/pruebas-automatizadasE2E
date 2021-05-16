@@ -33,7 +33,7 @@ export class Profile {
   }
 
   clickSignOut() {
-    cy.get('[data-ebd-id="ember26-trigger"]').click();
+    cy.get("[data-ebd-id$=-trigger]").click({ force: true });
     cy.get('[href="#/signout/"]').click({ force: true });
     return this;
   }

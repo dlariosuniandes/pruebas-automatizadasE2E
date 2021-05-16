@@ -28,12 +28,12 @@ export class Profile {
   }
 
   clickChangePassword() {
-    cy.contains("Change Password").click();
+    cy.contains("Change Password").click({force: true});
     return this;
   }
 
   clickSignOut() {
-    cy.get('[data-ebd-id="ember26-trigger"]').click();
+    cy.get('[data-ebd-id$=-trigger]').click({force: true});
     cy.get('[href="#/signout/"]').click({ force: true });
     return this;
   }

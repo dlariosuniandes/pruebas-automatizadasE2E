@@ -20,6 +20,11 @@ describe("Should login and create a tag with name successfully", () => {
 
   const tagTitle = faker.lorem.word() + " " + faker.lorem.word();
 
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
+
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
   });
@@ -28,10 +33,12 @@ describe("Should login and create a tag with name successfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to profile", () => {
     profile.goToProfile();
+    cy.screenshot(`${datetime}/image-2`);
   });
 
   it("should change password", () => {
@@ -40,6 +47,7 @@ describe("Should login and create a tag with name successfully", () => {
       .fillNewPassword(Cypress.env("password"))
       .fillVerifyNewPassword()
       .clickChangePassword();
+      cy.screenshot(`${datetime}/image-3`);
   });
 
   it("then password should be updated succesfully", ()=>{

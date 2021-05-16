@@ -18,6 +18,10 @@ describe("Should login and create a post with title succesfully", () => {
   });
 
   const codeInjectionText = faker.lorem.word();
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
@@ -27,18 +31,23 @@ describe("Should login and create a post with title succesfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to code Injection", () => {
     sideBar.goToCodeInjectionSite();
+    cy.screenshot(`${datetime}/image-2`);
   });
 
   it("should inject the code", () => {
-    codeInjection.addHeader(codeInjectionText).saveChanges();
+    codeInjection.addHeader(codeInjectionText)
+    cy.screenshot(`${datetime}/image-3`);
+    codeInjection.saveChanges();
   });
 
   it("should go to site", () => {
     sideBar.goToSite();
+    cy.screenshot(`${datetime}/image-4`);
   });
 
   it("then the code injected should exist in DOM", () => {

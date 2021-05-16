@@ -20,6 +20,11 @@ describe("Should login and create a page with title succesfully", () => {
   const pageTitle = faker.lorem.words();
   const newPageTitle = faker.lorem.words();
 
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
+
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
   });
@@ -28,18 +33,22 @@ describe("Should login and create a page with title succesfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to pages", () => {
     if (sideBar.checkIfComponentExists()) {
       cy.log("theres sidebar");
       sideBar.goToPages();
+      cy.screenshot(`${datetime}/image-2`);
     }
   });
 
   it("should create a page with random title", () => {
     if (pagePage.checkIfComponentExists()) {
-      pagePage.clickNewPost().fillTitle(pageTitle).clickBack();
+      pagePage.clickNewPost()
+      cy.screenshot(`${datetime}/image-3`);
+      pagePage.fillTitle(pageTitle).clickBack();
     }
   });
 
@@ -49,6 +58,7 @@ describe("Should login and create a page with title succesfully", () => {
 
   it("will enter on created page", () => {
     cy.contains(pageTitle).click({ force: true });
+    cy.screenshot(`${datetime}/image-4`);
   });
 
   it("should modify the title", () => {

@@ -19,6 +19,10 @@ describe("Should login and create a post with title succesfully", () => {
 
   const postTitle = faker.lorem.words()
 
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
   });
@@ -27,22 +31,26 @@ describe("Should login and create a post with title succesfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to posts", () => {
     if (sideBar.checkIfComponentExists()) {
       cy.log("theres sidebar");
       sideBar.goToPosts();
+      cy.screenshot(`${datetime}/image-2`);
     }
   });
 
   it("should create a post with random title", () => {
     if (postPage.checkIfComponentExists()) {
       postPage.clickNewPost().fillTitle(postTitle).clickBack()
+      cy.screenshot(`${datetime}/image-3`);
     }
   });
 
   it("post with random title should be available on post list", () => {
     cy.contains(postTitle).should("exist")
+    cy.screenshot(`${datetime}/image-4`);
   });
 });

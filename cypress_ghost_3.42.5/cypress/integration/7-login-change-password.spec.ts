@@ -18,7 +18,10 @@ describe("Should login and create a tag with name successfully", () => {
     return false;
   });
 
-  const tagTitle = faker.lorem.word() + " " + faker.lorem.word();
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
 
   const testPassword = "uniandestest123";
   beforeEach(() => {
@@ -29,10 +32,12 @@ describe("Should login and create a tag with name successfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to profile", () => {
     profile.goToProfile();
+    cy.screenshot(`${datetime}/image-2`);
   });
 
   it("should change password", () => {
@@ -41,10 +46,12 @@ describe("Should login and create a tag with name successfully", () => {
       .fillNewPassword(testPassword)
       .fillVerifyNewPassword()
       .clickChangePassword();
+      cy.screenshot(`${datetime}/image-3`);
   });
 
   it("should signout", () => {
       profile.clickSignOut()
+      cy.screenshot(`${datetime}/image-4`);
   })
 
   it("should login with the new password", () => {

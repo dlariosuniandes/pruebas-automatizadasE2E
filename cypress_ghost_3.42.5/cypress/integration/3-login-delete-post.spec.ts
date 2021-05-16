@@ -19,6 +19,13 @@ describe("Should login and create a post with title succesfully", () => {
 
   const postTitle = faker.lorem.words()
 
+  let datetime;
+
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
+
+
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
   });
@@ -27,18 +34,22 @@ describe("Should login and create a post with title succesfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to posts", () => {
     if (sideBar.checkIfComponentExists()) {
       cy.log("theres sidebar");
       sideBar.goToPosts();
+      cy.screenshot(`${datetime}/image-2`);
     }
   });
 
   it("should create a post with random title", () => {
     if (postPage.checkIfComponentExists()) {
-      postPage.clickNewPost().fillTitle(postTitle).clickBack()
+      postPage.clickNewPost()
+      cy.screenshot(`${datetime}/image-3`);
+      postPage.fillTitle(postTitle).clickBack()
     }
   });
 
@@ -48,10 +59,13 @@ describe("Should login and create a post with title succesfully", () => {
 
   it("will enter on created post", () => {
       cy.contains(postTitle).click({force: true})
+      cy.screenshot(`${datetime}/image-4`);
   })
 
   it("post is deleted", () => {
-      postPage.clickDelete().confirmDelete()
+      postPage.clickDelete()
+      cy.screenshot(`${datetime}/image-5`);
+      postPage.confirmDelete()
   })
 
   it("post should not exist anymore", () => {

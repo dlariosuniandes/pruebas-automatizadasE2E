@@ -5,10 +5,10 @@ import * as faker from "faker";
 
 const login = new Login();
 const sideBar = new SideBar();
-const  tagPage = new TagPage();
+const tagPage = new TagPage();
 
 const cookieSessionName =
-  Cypress.env("cookieSessionName") || "ghost-admin-api-session";  
+  Cypress.env("cookieSessionName") || "ghost-admin-api-session";
 
 describe("Should login and create a tag with name successfully", () => {
   Cypress.on("uncaught:exception", (err, runnable) => {
@@ -17,8 +17,12 @@ describe("Should login and create a tag with name successfully", () => {
     return false;
   });
 
-  const tagTitle = faker.lorem.word() + " " + faker.lorem.word()
+  const tagTitle = faker.lorem.word() + " " + faker.lorem.word();
+  let datetime;
 
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
   });
@@ -27,22 +31,26 @@ describe("Should login and create a tag with name successfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to tags", () => {
     if (sideBar.checkIfComponentExists()) {
       cy.log("theres sidebar");
       sideBar.goToTags();
+      cy.screenshot(`${datetime}/image-2`);
     }
   });
 
   it("should create a tag with random title", () => {
     if (tagPage.checkIfComponentExists()) {
-      tagPage.clickNewTag().fillTagName(tagTitle).saveTag().clickBack()
+      tagPage.clickNewTag()
+      cy.screenshot(`${datetime}/image-3`);
+      tagPage.fillTagName(tagTitle).saveTag().clickBack();
     }
   });
 
   it("tag with random title should be available on post list", () => {
-    cy.contains(tagTitle).should("exist")
+    cy.contains(tagTitle).should("exist");
   });
 });

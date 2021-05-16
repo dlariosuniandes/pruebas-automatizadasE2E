@@ -8,7 +8,7 @@ const sideBar = new SideBar();
 const postPage = new PostPage();
 
 const cookieSessionName =
-  Cypress.env("cookieSessionName") || "ghost-admin-api-session";  
+  Cypress.env("cookieSessionName") || "ghost-admin-api-session";
 
 describe("Should login and create a post with title succesfully", () => {
   Cypress.on("uncaught:exception", (err, runnable) => {
@@ -17,7 +17,11 @@ describe("Should login and create a post with title succesfully", () => {
     return false;
   });
 
-  const postTitle = faker.lorem.words()
+  const postTitle = faker.lorem.words();
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
@@ -27,35 +31,41 @@ describe("Should login and create a post with title succesfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to posts", () => {
     if (sideBar.checkIfComponentExists()) {
       cy.log("theres sidebar");
       sideBar.goToPosts();
+      cy.screenshot(`${datetime}/image-2`);
     }
   });
 
   it("should create a post with random title", () => {
     if (postPage.checkIfComponentExists()) {
-      postPage.clickNewPost().fillTitle(postTitle).clickBack()
+      postPage.clickNewPost();
+      cy.screenshot(`${datetime}/image-3`);
+      postPage.fillTitle(postTitle).clickBack();
     }
   });
 
   it("post with random title should be available on post list", () => {
-    cy.contains(postTitle).should("exist")
+    cy.contains(postTitle).should("exist");
   });
 
   it("should open search", () => {
     sideBar.goToTags();
-      sideBar.goToSearch()
-  })
-
-  it("Should type search", () => {
-     sideBar.typeSearch(postTitle);
+    cy.screenshot(`${datetime}/image-4`);
+    sideBar.goToSearch();
+    cy.screenshot(`${datetime}/image-5`);
   });
 
-  it("Then post should be available in search", ()=> {
-      cy.contains(postTitle)
-  })
+  it("Should type search", () => {
+    sideBar.typeSearch(postTitle);
+  });
+
+  it("Then post should be available in search", () => {
+    cy.contains(postTitle);
+  });
 });

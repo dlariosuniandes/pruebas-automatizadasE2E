@@ -21,6 +21,10 @@ describe("Should login and create a tag with name successfully", () => {
 
   const tagTitle = faker.lorem.word() + " " + faker.lorem.word();
   const postTitle = faker.lorem.words();
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
@@ -30,18 +34,22 @@ describe("Should login and create a tag with name successfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to tags", () => {
     if (sideBar.checkIfComponentExists()) {
       cy.log("theres sidebar");
       sideBar.goToTags();
+      cy.screenshot(`${datetime}/image-2`);
     }
   });
 
   it("should create a tag with random title", () => {
     if (tagPage.checkIfComponentExists()) {
-      tagPage.clickNewTag().fillTagName(tagTitle).saveTag().clickBack();
+      tagPage.clickNewTag()
+      cy.screenshot(`${datetime}/image-3`);
+      tagPage.fillTagName(tagTitle).saveTag().clickBack();
     }
   });
 
@@ -52,15 +60,20 @@ describe("Should login and create a tag with name successfully", () => {
   it("should go to posts", () => {
     cy.log("theres sidebar");
     sideBar.goToPosts();
+    cy.screenshot(`${datetime}/image-4`);
   });
 
   it("should create a post with random title", () => {
-    postPage.clickNewPost().fillTitle(postTitle).clickBack();
+    postPage.clickNewPost()
+    cy.screenshot(`${datetime}/image-5`);
+    postPage.fillTitle(postTitle).clickBack();
   });
 
   it("should select tag", () => {
     cy.contains(postTitle).click({ force: true });
-    postPage.goToPostSettings().selectTag(tagTitle).clickBack().confirmLeave();
+    postPage.goToPostSettings()
+    cy.screenshot(`${datetime}/image-6`);
+    postPage.selectTag(tagTitle).clickBack().confirmLeave();
   });
 
   it("post with random title should be available on post list cotaining the tag selected", () => {

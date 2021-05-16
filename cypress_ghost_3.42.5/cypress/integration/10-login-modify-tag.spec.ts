@@ -19,6 +19,10 @@ describe("Should login and create a tag with name successfully", () => {
 
   const tagTitle = faker.lorem.word() + " " + faker.lorem.word();
   const newTagTitle = faker.lorem.word() + " " + faker.lorem.word();
+  let datetime;
+  before(() => {
+    datetime = new Date().toISOString().replace(/:/g, ".");
+  });
 
   beforeEach(() => {
     Cypress.Cookies.preserveOnce(cookieSessionName);
@@ -28,18 +32,22 @@ describe("Should login and create a tag with name successfully", () => {
     login.visit();
     login.loginWithEnvUser();
     cy.url().should("include", "/#/site");
+    cy.screenshot(`${datetime}/image-1`);
   });
 
   it("should go to tags", () => {
     if (sideBar.checkIfComponentExists()) {
       cy.log("theres sidebar");
       sideBar.goToTags();
+      cy.screenshot(`${datetime}/image-2`);
     }
   });
 
   it("should create a tag with random title", () => {
     if (tagPage.checkIfComponentExists()) {
-      tagPage.clickNewTag().fillTagName(tagTitle).saveTag().clickBack();
+      tagPage.clickNewTag()
+      cy.screenshot(`${datetime}/image-3`);
+      tagPage.fillTagName(tagTitle).saveTag().clickBack();
     }
   });
 
@@ -49,6 +57,7 @@ describe("Should login and create a tag with name successfully", () => {
 
   it("will enter on created tag", () => {
     cy.contains(tagTitle).click({ force: true });
+    cy.screenshot(`${datetime}/image-4`);
   });
 
   it("should modify the title", () => {

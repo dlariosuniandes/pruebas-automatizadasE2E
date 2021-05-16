@@ -1,0 +1,9 @@
+{
+  "env": {
+    "url": "http://localhost:2368",
+    "user": "d.larios@uniandes.edu.co",
+    "username": "Daniel Larios",
+    "password": "uniandestest"
+  },
+  "chromeWebSecurity": false
+}

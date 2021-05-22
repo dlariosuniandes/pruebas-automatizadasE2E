@@ -69,6 +69,9 @@ if ENV["ADB_DEVICE_ARG"].nil?
     elsif event == 'clear'
       if type == 'id'
         @driver.find_element(:id, selector).clear
+        @driver.find_element(:id, selector).click;
+        @driver.action.key_down(:control).send_keys("a").key_up(:control).perform
+          @driver.find_element(:id, selector).send_keys("")
       elsif type == 'class'
         @driver.find_element(:class, selector).clear
       elsif type == 'xpath'
@@ -177,11 +180,14 @@ if ENV["ADB_DEVICE_ARG"].nil?
           if value_length == -1
             random = Faker::Internet.free_email
           else
-            random = Faker::Lorem.characters(number: value_length - 9) + '@mail.com'
+            available_length = value_length - 5
+            domain_length = available_length - 64
+            random = Faker::Lorem.characters(number: 64) + '@' +Faker::Lorem.characters(number: domain_length) + '.com'
           end
         elsif value_case == 'only spaces'
           random = generate_spaces value_length
         elsif value_case == 'bad formed'
+          random = Faker::Lorem.characters(number: 64)
         end
       when 'url'
         if value_case == 'none'
@@ -196,33 +202,20 @@ if ENV["ADB_DEVICE_ARG"].nil?
         elsif value_case == 'only spaces'
           random = generate_spaces value_length
         elsif value_case == 'bad formed'
+          random = Faker::Lorem.characters(number: 64)
         end
-      when 'facebook'
+      when 'facebook', 'twitter'
         if value_case == 'none'
           if value_length == -1
-            random = "https://www.facebook.com/" + Faker::Lorem.characters(number: rand(1..32))
+            random = Faker::Lorem.characters(number: rand(10..32))
           else
-            available_length = value_length - 25
-            random = "https://www.facebook.com/" + Faker::Lorem.characters(number: available_length)
+            random = Faker::Lorem.characters(number: value_length)
           end
         elsif value_case == 'only spaces'
           random = generate_spaces value_length
         elsif value_case == 'bad formed'
+          random = '%%%%%%%%'
         end
-      when 'twitter'
-        if value_case == 'none'
-          if value_length == -1
-            random = "https://twitter.com/" + Faker::Lorem.characters(number: rand(1..32))
-          else
-            available_length = value_length - 20
-            random = "https://twitter.com/" + Faker::Lorem.characters(number: available_length)
-          end
-        elsif value_case == 'only spaces'
-          random = generate_spaces value_length
-        elsif value_case == 'bad formed'
-        end
-      else
-        put "Value not supported"
       end
     return random
   end
@@ -755,52 +748,79 @@ if ENV["ADB_DEVICE_ARG"].nil?
 #==================================================================================
   When (/^I load and execute test scenarios from file "([^\"]*)"$/) do |filename|
     table = CSV.parse(File.read(filename), headers: true)
+    filename_n_error = './.' + filename + '.n_errors'
+    filename_error_logs = './.' + filename + '.error_logs'
     
     n_rows = table.length()
-    n_cols = table[0].length()
     
     i = 0
     
+    File.write(filename_n_error, 0)
+    File.write(filename_error_logs, "")
+    
     while i < n_rows
       form_type = table[i][0]
-      puts form_type
       
       case form_type
         when "User profile"
-        go_to_user_profile
-        field_type = table[i][1]
-        value_type = table[i][2]
-        length = table[i][3]
-        special_case = table[i][4]
-        expected = table[i][5]
-        
-        random_text = random_text value_type, length.to_i, special_case
-        do_event "clear", 'id', field_type, ""
-        do_event "type", 'id', field_type, random_text
-        File.write('./.'+filename, random_text)
-        do_event "click", "class", "gh-btn-blue", ""
-        sleep DEFAULT_SLEEP_TIME
-        
-        if expected == 'pass'
-        
-        else
+          go_to_user_profile
+          field_type = table[i][1]
+          value_type = table[i][2]
+          length = table[i][3]
+          special_case = table[i][4]
+          expected = table[i][5]
+          
+          random_text = random_text value_type, length.to_i, special_case
+          do_event "clear", 'id', field_type, ""
+          do_event "type", 'id', field_type, random_text
+          File.write('./.'+filename, random_text)
+          do_event "click", "class", "gh-btn-blue", ""
+          
+          n_errors = @driver.find_elements(:class, 'error').size()
+          
+          sleep DEFAULT_SLEEP_TIME
+          if expected == 'pass'
+            if n_errors > 0
+              number_str = IO.read(filename_n_error)  
+              number = number_str.to_i + 1
+              File.write(filename_n_error, number)
+              File.open(filename_error_logs,"a") do |file|
+                file.write form_type + "," + field_type + "," + value_type + "," + length + "," + special_case + "," + expected + "\n"
+              end
+            end
+          else
+            if n_errors == 0
+              number_str = IO.read(filename_n_error)  
+              number = number_str.to_i + 1
+              File.write(filename_n_error, number)
+              File.open(filename_error_logs,"a") do |file|
+                file.write form_type + "," + field_type + "," + value_type + "," + length + "," + special_case + "," + expected + "\n"
+              end
+            end
+          end
+          
+          if field_type == 'user-email'
+            do_event "clear", 'id', field_type, ""
+            do_event "type", 'id', field_type, USER_NAME
+            do_event "click", "class", "gh-btn-blue", ""
+          end
+          
         end
-        
-        
-        generate_screenshot
-      else
-        put "Form not supported"
-      end
       
       i = i + 1
     end
-    
-    #table.each{ |key, value|
-    #  puts "Key = #{key} / Value = #{value}"
-    #}
+
+  end
+
+  Then (/^I should not see any failed scenario for file "([^\"]*)"$/) do |filename|
+    filename_n_error = './.' + filename + '.n_errors'
+    filename_error_logs = './.' + filename + '.error_logs'
+    number_str = IO.read(filename_n_error)  
+    number = number_str.to_i + 1
+    raise 'ERROR: there are errors in file "' + filename + '".  Please check the failed ones in "' + filename_error_logs + '" file.'  if number > 0
   end
 
 
-
-
 end
+
+

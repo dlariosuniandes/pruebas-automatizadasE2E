@@ -1,0 +1,35 @@
+form_type,field_type,value_type,length,special_case,expected
+User profile,user-slug,slug,190,none,pass
+User profile,user-slug,slug,191,none,pass
+User profile,user-slug,slug,192,none,fail
+User profile,user-slug,slug,-1,only spaces,fail
+User profile,user-slug,slug,-1,none,pass
+User profile,user-email,email,190,none,pass
+User profile,user-email,email,191,none,pass
+User profile,user-email,email,192,none,fail
+User profile,user-email,email,-1,only spaces,fail
+User profile,user-email,email,-1,bad formed,fail
+User profile,user-email,email,-1,none,pass
+User profile,user-location,sentence,-1,none,pass
+User profile,user-website,url,1999,none,pass
+User profile,user-website,url,2000,none,pass
+User profile,user-website,url,2001,none,fail
+User profile,user-website,url,-1,only spaces,fail
+User profile,user-website,url,-1,bad formed,fail
+User profile,user-website,url,-1,none,pass
+User profile,user-facebook,facebook,1999,none,pass
+User profile,user-facebook,facebook,2000,none,pass
+User profile,user-facebook,facebook,2001,none,fail
+User profile,user-facebook,facebook,-1,only spaces,fail
+User profile,user-facebook,facebook,-1,bad formed,fail
+User profile,user-facebook,facebook,-1,none,pass
+User profile,user-twitter,twitter,1999,none,pass
+User profile,user-twitter,twitter,2000,none,pass
+User profile,user-twitter,twitter,2001,none,fail
+User profile,user-twitter,twitter,-1,only spaces,fail
+User profile,user-twitter,twitter,-1,bad formed,fail
+User profile,user-twitter,twitter,-1,none,pass
+User profile,user-bio,sentence,199,none,pass
+User profile,user-bio,sentence,200,none,pass
+User profile,user-bio,sentence,201,none,fail
+User profile,user-bio,sentence,-1,none,pass

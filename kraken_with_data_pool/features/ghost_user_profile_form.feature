@@ -4,4 +4,4 @@ Feature: Profile form data validation
 Scenario: Profile form data validation
   Given I login into the administrator site
   When I load and execute test scenarios from file "user_profile_form_cases.csv"
-  Then I should not see any failed scenario
+  Then I should not see any failed scenario for file "user_profile_form_cases.csv"

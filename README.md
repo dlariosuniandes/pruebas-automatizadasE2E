@@ -56,7 +56,7 @@ Reemplazar <code>[ruta_instalables_kraken]</code> por la ruta dónde se encuentr
 
 <code>bundle install --path vendor/bundle</code><br>
 <code>bundle install</code><br>
-<code>bundle exec kraken-mobile gen</code>
+<code>bundle exec kraken-mobile gen</code><br>
 <code>sudo gem install faker</code>
 
 <strong>5.	Generar el Proyecto base en Kraken</strong>

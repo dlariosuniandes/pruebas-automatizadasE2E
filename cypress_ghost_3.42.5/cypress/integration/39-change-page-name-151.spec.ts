@@ -17,10 +17,11 @@ describe("Should login and create a post with title succesfully", () => {
     return false;
   });
 
-  const newTitle = faker.lorem.words();
+  //const newTitle = faker.lorem.words();
   let tempURL: string;
 
   let datetime;
+  let newTitle;
   before(() => {
     datetime = new Date().toISOString().replace(/:/g, ".");
     cy.request(

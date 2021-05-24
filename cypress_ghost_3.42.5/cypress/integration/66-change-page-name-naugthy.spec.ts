@@ -17,7 +17,6 @@ describe("Should login and create a post with title succesfully", () => {
     return false;
   });
 
-  
   let tempURL: string;
 
   let datetime;
@@ -32,13 +31,13 @@ describe("Should login and create a post with title succesfully", () => {
                 'content-type' : 'application/json'
             },
             body : {
-                'newTitle' : 'site_name_150'
+                'newTitle' : 'site_name_naughty'
             }
         }).then((response)  => {
             expect(response).property('status').to.equal(200)
-            expect(response.body).property('site_name_150').to.not.be.oneOf([null, ""])
+            expect(response.body).property('site_name_naughty').to.not.be.oneOf([null, ""])
             const body = (response.body)
-            newTitle = body['site_name_150']
+            newTitle = body['site_name_naughty']
         });
   });
 
@@ -75,8 +74,4 @@ describe("Should login and create a post with title succesfully", () => {
     cy.screenshot(`${datetime}/image-4`);
   });
 
- it("then it should contain new title", () => {
-    cy.contains(newTitle).should("exist");
-  });
-  
 });

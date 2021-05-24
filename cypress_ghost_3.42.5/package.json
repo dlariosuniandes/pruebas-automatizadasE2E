@@ -11,6 +11,7 @@
   "dependencies": {
     "cypress": "^7.3.0",
     "faker": "^5.5.3",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "cypress-xpath": "^1.6.2"
   }
 }

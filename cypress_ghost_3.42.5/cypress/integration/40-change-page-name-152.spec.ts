@@ -1,6 +1,6 @@
-import { Login } from "../page-objects/login";
-import { SideBar } from "../page-objects/side-bar";
-import { SettingsPage } from "../page-objects/settings-page";
+import { Login } from "../page-objects-daniel/login";
+import { SideBar } from "../page-objects-daniel/side-bar";
+import { SettingsPage } from "../page-objects-daniel/settings-page";
 import * as faker from "faker";
 import { should } from "chai";
 const login = new Login();

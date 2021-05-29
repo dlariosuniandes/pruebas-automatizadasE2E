@@ -1,5 +1,5 @@
-import { Login } from "../page-objects/login";
-import { Profile } from "../page-objects/profile";
+import { Login } from "../page-objects-daniel/login";
+import { Profile } from "../page-objects-daniel/profile";
 import * as faker from "faker";
 
 const login = new Login();

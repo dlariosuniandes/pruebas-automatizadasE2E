@@ -1,7 +1,7 @@
-import { Login } from "../page-objects/login";
-import { Profile } from "../page-objects/profile";
-import { SideBar } from "../page-objects/side-bar";
-import { Staff } from "../page-objects/staff-page";
+import { Login } from "../page-objects-daniel/login";
+import { Profile } from "../page-objects-daniel/profile";
+import { SideBar } from "../page-objects-daniel/side-bar";
+import { Staff } from "../page-objects-daniel/staff-page";
 import * as faker from "faker";
 
 const login = new Login();
